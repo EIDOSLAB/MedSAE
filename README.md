@@ -2,12 +2,15 @@
 
 This repository provides tools and scripts for **mechanistic interpretability** of medical imaging models using **Sparse Autoencoders (SAEs)**. It supports training, evaluation, and analysis of SAEs on neural network activations, with a focus on models such as **CLIP** and **MedCLIP**.  
 
+🎉 **The MedSAE paper has been accepted at [ICIP 2026](https://doi.org/10.1109/ICIP61757.2026.11629904)!** If you use this code, please [cite our paper](#-citation).
+
 ---
 
 ## 📑 Table of Contents
 
 - [📂 Project Structure](#-project-structure)
 - [⚙️ Installation](#-installation)
+- [📦 Pretrained Checkpoint](#-pretrained-checkpoint)
 - [📊 Datasets](#-datasets)
 - [🧠 Models](#-models)
 - [💾 Computing Activations & SAE Features](#-computing-activations--sae-features)
@@ -16,6 +19,7 @@ This repository provides tools and scripts for **mechanistic interpretability** 
 - [🚀 Quick Start: Training an SAE, Assigning Concepts, and Evaluating Interpretability](#-quick-start-training-an-sae-assigning-concepts-and-evaluating-interpretability)
 - [🔧 Useful Commands](#-useful-commands)
 - [📚 References](#-references)
+- [📝 Citation](#-citation)
 
 ## 📂 Project Structure
 
@@ -95,6 +99,17 @@ Fix current medclip library issue :
 Add strict=False in this file:
 https://github.com/RyanWangZf/MedCLIP/blob/main/medclip/modeling_medclip.py#L185
 (See : https://github.com/RyanWangZf/MedCLIP/issues/37)
+
+---
+
+## 📦 Pretrained Checkpoint
+
+We release a **Standard** SAE checkpoint trained on **MedCLIP-RN50** activations from **CheXpert**: [download it from Google Drive](https://drive.google.com/file/d/1-6ifmQuFIzyE9CFu-T4E7D3XJq2HVkwJ/view?usp=share_link).
+
+Place the downloaded file (`medclip-rn50_chexpert_standard_sweep_best.pt`) in `data/sae_checkpoints/` (see [Data Naming Convention](#️-data-naming-convention)) and pass it to the scripts, e.g.:
+```bash
+python src/save_activations_or_features.py   --model_name MedCLIP-RN50   --split val   --dataset chexpert   --sae_path medclip-rn50_chexpert_standard_sweep_best.pt   --sae_type_name Standard
+```
 
 ---
 
@@ -318,3 +333,21 @@ python src/chexpert_score.py   --model_name MedCLIP-RN50   --split trainval   --
 - [CLIP (OpenAI)](https://github.com/openai/CLIP)  
 - [MedCLIP](https://github.com/RyanWangZf/MedCLIP)  
 - [Dictionary Learning](https://github.com/saprmarks/dictionary_learning)  
+
+---
+
+## 📝 Citation
+
+If you find this work useful, please cite:
+
+```bibtex
+@INPROCEEDINGS{medsae,
+  author={Renzulli, Riccardo and Lepoutre, Colas and Cassano, Enrico and Grangetto, Marco},
+  booktitle={2026 IEEE International Conference on Image Processing (ICIP)}, 
+  title={MedSAE: Dissecting MedCLIP Representations with Sparse Autoencoders}, 
+  year={2026},
+  volume={},
+  number={},
+  pages={1-6},
+  doi={10.1109/ICIP61757.2026.11629904}}
+```
